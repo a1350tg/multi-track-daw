@@ -40,7 +40,7 @@
           </ul>
           
           
-          <!-- ピアノロール　ここから -->                    
+          <!-- ピアノロール　ここから -->
           <div class="tab-content">
             <div class="tab-pane active" id="pianorolltab">
               
@@ -177,7 +177,7 @@
             <div class="modal-body">
 				<%= form_for @project , :html => {:class=> 'form-control'} do |f| %>
 					<%= f.label :track_name %>
-					<%= text_field :track, :name %><br />
+					<%= text_field :track, :name, :id => 'track_name' %><br />
 					<%= f.label :insturument_id %>
 					<%= f.collection_select :id, Instrument.all, :id, :name %>
 				<%- end -%>

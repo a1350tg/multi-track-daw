@@ -418,7 +418,7 @@ document.getElementById("newTrackB").addEventListener("click", function(event){
 	var a = document.createElement("a");
 	a.href = "#pianorolltab";
 	a.setAttribute("data-toggle", "tab");
-	a.textContent = "Ch 22";
+	a.textContent = document.getElementById("track_name").value;
 	
 	var li = document.createElement("li");
 	li.className = "active";
