@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>プロジェクト名称:</strong>
+  <%= @project.name %>
+</p>
+
+<p>
+  <strong>テンポ:</strong>
+  <%= @project.tempo %>
+</p>
+
+<p>
+  <strong>ユーザ</strong>
+  <%= @project.user.name %>
+</p>
+
+<%= link_to 'Edit', 'mnt/edit/'+@project.id %> |
+<%= link_to 'Back', 'mnt/index' %>

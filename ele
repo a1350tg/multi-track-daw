@@ -1,0 +1,6 @@
+ id |      email       |                       password_digest                        |         created_at         |         updated_at         | name 
+----+------------------+--------------------------------------------------------------+----------------------------+----------------------------+------
+  1 | a1350@aiit.ac.jp | $2a$10$OI0NVI6s.XHssm6aKpyZZ.SxoARPCejg6YpIF.1pTRXssgHopIIf. | 2014-02-13 10:56:45.581481 | 2014-02-13 10:56:45.581481 | 
+  2 | aa@bbcc          | $2a$10$RfYrGB4obDA2PShp4VIZ7ucw2XQ9y2eHZuHty1NaJSgL9R13cl0pa | 2014-02-13 10:57:03.793296 | 2014-02-13 10:57:03.793296 | 
+(2 rows)
+

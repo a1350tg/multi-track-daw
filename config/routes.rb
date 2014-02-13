@@ -1,5 +1,7 @@
 MultiTrackDaw::Application.routes.draw do
 
+  resources :tracks
+
 	resources :sessions
 	get "sessions/new"
 
@@ -64,4 +66,6 @@ MultiTrackDaw::Application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+  get ':controller(/:action(/:id))(.:format)'
+  post ':controller(/:action(/:id))(.:format)'
 end
