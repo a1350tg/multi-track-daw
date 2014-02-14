@@ -1,3 +1,8 @@
+        <% $fullpath = request.fullpath %>
+        <% p "###################################" %>
+        <% p $fullpath %>
+        <% p request.url %>
+ 
         <div class="container">
           <div style="width:800px;">
             <div style="width:400px; float:left;">
@@ -189,6 +194,7 @@
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
       </div><!-- /.modal -->
+      <%= link_to_function "トラック出力","dbout()" %>
 
 
       
@@ -214,6 +220,16 @@
 	  </div>
 	
 	<% end %>
+<!--- 追加 トラックを追加するための非表示form --->
+	<%= form_tag "/ajax/dbout",{:remote=>true,:name=>"dbform"} do  %>
+    <%= text_field :track, :name ,:id=>"t_name" %>
+    <%= text_field :track, :instrument ,:id=>"t_instrument" %>
+    <%= text_area :track, :score,:id=>"t_score" %>
+    <%= text_field :track, :project_id,:id=>"t_project_id" %>
+    <%= text_field :track, :user_id,:id=>"t_user_id" %>
+  <% end %></br>
+  <%= render 'errmsg' %>
+<!--- 追加 トラックを追加するための非表示form end--->
 
     <script type="text/javascript" src="/javascripts/jquery.js"></script>
     <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
@@ -236,4 +252,17 @@
             document.body.appendChild(tscr);
         }
     });
+    </script>
+    <script>
+       function dbout(){
+        var that=pRoll;
+        var inputtext=document.getElementById("inputText").value;
+        var content=JSON.stringify({inputText:inputtext,noteStack:pRoll.noteStack});
+        document.getElementById("t_name").value = "無名の人"
+        document.getElementById("t_instrument").value = 1
+        document.getElementById("t_score").value = content
+        document.getElementById("t_project_id").value = 2
+        document.getElementById("t_user_id").value = 1
+        document.dbform.submit();
+      }
     </script>

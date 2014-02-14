@@ -1,0 +1,13 @@
+var inputtext=document.getElementById("inputText").value;
+alert(inputtext)
+var content=JSON.stringify({ inputText:inputtext, noteStack: this.noteStack});
+alert(content)
+document.cookie = "notes=" + content
+<% @track = Track.new %>
+<% @track.name = "trackname" %>
+<% @track.instrument = 1 %>
+<% @track.score = cookies[:notes] %>
+<% @track.project_id = params[:id] %>
+<% @track.user_id = 1 %>
+<% @track.save %>
+$("msg").html("Š®—¹")
