@@ -20,6 +20,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1/edit
   def edit
+    @tracks = Track.all
     @track = Track.new
   end
 
@@ -27,7 +28,10 @@ class ProjectsController < ApplicationController
   # POST /projects.json
   def create
     @project = Project.new(project_params)
-
+    ## 仮にセット (2014/2/15)
+    @project.tempo = 120
+    @project.user_id = 2
+    ## 仮にセット(2014/2/15)end 
     respond_to do |format|
       if @project.save
         format.html { redirect_to @project, notice: 'Project was successfully created.' }
@@ -62,6 +66,21 @@ class ProjectsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  def dbout
+    @track=Track.new
+    @track.name=params[:name]
+    @track.instrument=params[:track]
+    @track.score=params[:score]
+    @track.project_id=params[:project_id]
+    @track.user_id=params[:user_id]
+    @track.save
+    redirect_to :controller=>'projects',:action => "edit", :id => 2
+  end
+  def dbin
+    @track=Track.find($tracks.id)
+    p params
+    redirect_to :controller=>'projects',:action => "edit", :id => 2
+   end
 
   private
     # Use callbacks to share common setup or constraints between actions.

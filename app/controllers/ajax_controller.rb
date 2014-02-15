@@ -9,4 +9,9 @@ class AjaxController < ApplicationController
     @track.save
     redirect_to :controller=>'projects',:action => "edit", :id => 2
   end
+  def dbin
+    p "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
+    p params
+    #@track=Track.find(
+  end
 end

@@ -1,7 +1,3 @@
-        <% $fullpath = request.fullpath %>
-        <% p "###################################" %>
-        <% p $fullpath %>
-        <% p request.url %>
  
         <div class="container">
           <div style="width:800px;">
@@ -194,8 +190,10 @@
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
       </div><!-- /.modal -->
-      <%= link_to_function "トラック出力","dbout()" %>
-
+      <%= link_to_function "トラック出力　　","dbout()" %>
+      <%= link_to_function "トラック入力","dbin()" %>
+      <%= collection_select @track,:track,@tracks,:id,:name,{:id=>"track_selected"} %>
+      <%= render 'errmsg' %>
 
       
 
@@ -221,14 +219,13 @@
 	
 	<% end %>
 <!--- 追加 トラックを追加するための非表示form --->
-	<%= form_tag "/ajax/dbout",{:remote=>true,:name=>"dbform"} do  %>
+	<%= form_tag "/projects/dbout",{:remote=>true,:name=>"dbform"} do  %>
     <%= text_field :track, :name ,:id=>"t_name" %>
     <%= text_field :track, :instrument ,:id=>"t_instrument" %>
     <%= text_area :track, :score,:id=>"t_score" %>
     <%= text_field :track, :project_id,:id=>"t_project_id" %>
     <%= text_field :track, :user_id,:id=>"t_user_id" %>
   <% end %></br>
-  <%= render 'errmsg' %>
 <!--- 追加 トラックを追加するための非表示form end--->
 
     <script type="text/javascript" src="/javascripts/jquery.js"></script>
@@ -254,15 +251,35 @@
     });
     </script>
     <script>
+       function dbin(){
+         pRoll.noteStack=JSON.parse(scores[1]).noteStack;
+         alert(document.getElementById("__Track:0xb6eccd70_track").selectedIndex)
+       }
        function dbout(){
-        var that=pRoll;
-        var inputtext=document.getElementById("inputText").value;
-        var content=JSON.stringify({inputText:inputtext,noteStack:pRoll.noteStack});
-        document.getElementById("t_name").value = "無名の人"
-        document.getElementById("t_instrument").value = 1
-        document.getElementById("t_score").value = content
-        document.getElementById("t_project_id").value = 2
-        document.getElementById("t_user_id").value = 1
-        document.dbform.submit();
-      }
+         var that=pRoll;
+         var inputtext=document.getElementById("inputText").value;
+         var content=JSON.stringify({inputText:inputtext,noteStack:pRoll.noteStack});
+         document.getElementById("t_name").value = "無名の人"
+         document.getElementById("t_instrument").value = 1
+         document.getElementById("t_score").value = content
+         document.getElementById("t_project_id").value = 2
+         document.getElementById("t_user_id").value = 1
+         document.dbform.submit();
+       }
+       $(window).load(function() {
+         var scores = new Array;
+         <% @tracks.each do |track| %>
+           scores.push("<%= track.score %>")
+         <% end %>
+
+         document.getElementById("inputText").value=contents.inputText;
+         var e = document.createEvent('MouseEvent');
+         var b=document.getElementById("inputTextButton");
+
+         //fire click event
+         e.initEvent("click", true, true, window, 1, 0, 0, 0, 0, false, false, false, false, 0, null);
+         b.dispatchEvent(e);
+
+         alert (pRoll.noteStack.length);
+       });
     </script>

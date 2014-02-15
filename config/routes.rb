@@ -1,5 +1,11 @@
 MultiTrackDaw::Application.routes.draw do
 
+  get "projects/dbin" 
+  get "projects/dbout" 
+  post "projects/dbout" 
+  get "tracks/delete"
+  get "tracks/destroy"
+
   resources :tracks
 
 	resources :sessions
