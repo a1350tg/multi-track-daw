@@ -251,17 +251,24 @@
     });
     </script>
     <script>
+       var that;
+       var inputtext;
+       var contents;
+       var inputtext;
        function dbin(){
          pRoll.noteStack=JSON.parse(scores[1]).noteStack;
-         alert(document.getElementById("__Track:0xb6eccd70_track").selectedIndex)
        }
        function dbout(){
-         var that=pRoll;
-         var inputtext=document.getElementById("inputText").value;
-         var content=JSON.stringify({inputText:inputtext,noteStack:pRoll.noteStack});
+         that=pRoll;
+         inputtext=document.getElementById("inputText").value;
+         //var a1 = {a:"1"}
+         //var b=JSON.stringfy(a1)
+         //var c=JSON.parse(b)
+         contents=JSON.stringify({inputText:inputtext,noteStack:pRoll.noteStack});
+         var a=JSON.parse(contents);
          document.getElementById("t_name").value = "無名の人"
          document.getElementById("t_instrument").value = 1
-         document.getElementById("t_score").value = content
+         document.getElementById("t_score").value = contents
          document.getElementById("t_project_id").value = 2
          document.getElementById("t_user_id").value = 1
          document.dbform.submit();
@@ -269,17 +276,30 @@
        $(window).load(function() {
          var scores = new Array;
          <% @tracks.each do |track| %>
-           scores.push("<%= track.score %>")
+           var wk = ("<%= track.score %>")
+           scores.push(htmlspecialchars_decode(wk))
          <% end %>
-
-         document.getElementById("inputText").value=contents.inputText;
          var e = document.createEvent('MouseEvent');
          var b=document.getElementById("inputTextButton");
 
          //fire click event
          e.initEvent("click", true, true, window, 1, 0, 0, 0, 0, false, false, false, false, 0, null);
          b.dispatchEvent(e);
-
-         alert (pRoll.noteStack.length);
+         var wk = scores[1]
+         var wk2 = JSON.parse(wk)
+         pRoll.noteStack=wk2.noteStack
+         document.getElementById("inputText").value=JSON.parse(scores[1]).inputText;
        });
+       /***************************************************
+           特殊な HTML エンティティを文字に戻す
+        ***************************************************/
+       var htmlspecialchars_decode = function(str) {
+         return str.replace(/&(gt|lt|#039|quot|amp);/ig, function($0, $1) {
+           if (/^gt$/i.test($1))   return ">";
+           if (/^lt$/i.test($1))   return "<";
+           if (/^#039$/.test($1))  return "'";
+           if (/^quot$/i.test($1)) return "\"";
+           if (/^amp$/i.test($1))  return "&";
+         });
+       };
     </script>
